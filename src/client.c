@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 11:48:15 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/01/27 12:07:18 by lyaiche          ###   ########.fr       */
+/*   Created: 2022/01/27 12:00:41 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/01/27 12:14:17 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-#endif
+void	client(int pid, char line)
+{
+	
+}
