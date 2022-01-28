@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   check_pid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 11:48:15 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/01/28 13:38:29 by lyaiche          ###   ########.fr       */
+/*   Created: 2022/01/28 13:15:41 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/01/28 13:22:16 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
+int	check_pid(char *pid)
+{
+	int	i;
 
-void	ft_putnbr(int n);
-void	arg_error(void);
-int		check_pid(char *pid);
-int		ft_atoi(char *num);
-
-#endif
+	i = -1;
+	while (pid[++i])
+		if (!(pid[i] >= 48 && pid[i] <= 57))
+			return (0);
+	return (1);
+}

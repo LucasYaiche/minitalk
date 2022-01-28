@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 11:48:15 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/01/28 13:38:29 by lyaiche          ###   ########.fr       */
+/*   Created: 2022/01/28 11:19:01 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/01/28 15:02:47 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-void	ft_putnbr(int n);
-void	arg_error(void);
-int		check_pid(char *pid);
-int		ft_atoi(char *num);
-
-#endif
+int	main(void)
+{
+	char i;
+	
+	i = 4;
+	ft_putnbr(getpid());
+	write(1, "\n", 1);
+	write(1, "\u1756", 1);
+	write(1, "\n", 1);
+}
