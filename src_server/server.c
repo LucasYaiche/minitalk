@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucasyaiche <lucasyaiche@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:19:01 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/01/28 15:02:47 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/01/30 16:54:48 by lucasyaiche      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int	main(void)
 {
-	char i;
-	
-	i = 4;
+	struct sigaction	one;
+	struct sigaction	zero;
+	char				i;
+
+	one.sa_sigaction = bit_one;
+	zero.sa_sigaction = bit_zero;
+	one.sa_flags = SA_SIGINFO;
+	one.sa_flags = SA_SIGINFO;
 	ft_putnbr(getpid());
-	write(1, "\n", 1);
-	write(1, "\u1756", 1);
-	write(1, "\n", 1);
+	
 }
