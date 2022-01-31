@@ -6,7 +6,7 @@ CLIENT_SRC = client.c
 
 SERVER_SRC = server.c 
 
-COMMON_SRC = check_pid.c arg_error.c ft_atoi.c ft_putnbr.c
+COMMON_SRC = check_pid.c panic_button.c ft_atoi.c ft_putnbr.c
 				
 COMMON_OBJ = ${addprefix ${OBJDIR}, ${COMMON_SRC:%.c=%.o}}
 

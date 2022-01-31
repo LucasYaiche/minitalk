@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 11:48:15 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/01/28 13:38:29 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/01/31 15:14:44 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 
 void	ft_putnbr(int n);
-void	arg_error(void);
+void	panic_button(void);
 int		check_pid(char *pid);
 int		ft_atoi(char *num);
 
