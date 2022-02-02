@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucasyaiche <lucasyaiche@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:00:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/02/01 16:42:49 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/02/02 02:21:42 by lucasyaiche      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,18 @@ int	main(int argc, char **argv)
 		bit = 8;
 		while (--bit >= 0)
 		{
-			if ((*msg >> bit) & 0)
+			if ((*msg >> bit) & 1)
 			{
-				write(1, "oui 1\n", 7);
-				if (kill(pid, SIGUSR1) == -1)
+				if (kill(pid, SIGUSR2) == -1)
 					panic_button();
 			}
 			else
 			{
-				write(1, "oui 2\n", 7);
-				if (kill(pid, SIGUSR2) == -1)
+				if (kill(pid, SIGUSR1) == -1)
 					panic_button();
 			}
-			msg++;
+			usleep(50);
 		}
+		msg++;
 	}
 }
