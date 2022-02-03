@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:19:01 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/02/02 16:57:10 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:12:04 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	bit_one(int sig, siginfo_t *info, void *act)
 		letter.index = 0;
 		letter.letter = 0;
 	}
-	kill(info->si_pid, SIGUSR2);
 }
 
 void	bit_zero(int sig, siginfo_t *info, void *act)
@@ -42,6 +41,7 @@ void	bit_zero(int sig, siginfo_t *info, void *act)
 	{
 		if (letter.letter == '\0')
 		{
+			write(1, "\n", 1);
 			kill(info->si_pid, SIGUSR1);
 		}
 		else
@@ -49,7 +49,6 @@ void	bit_zero(int sig, siginfo_t *info, void *act)
 			write(1, &letter.letter, 1);
 			letter.index = 0;
 			letter.letter = 0;
-			kill(info->si_pid, SIGUSR2);
 		}
 	}
 }
@@ -63,15 +62,12 @@ int	main(void)
 	zero.sa_sigaction = bit_zero;
 	one.sa_flags = SA_SIGINFO;
 	zero.sa_flags = SA_SIGINFO;
+	if ((sigaction(SIGUSR2, &one, NULL)) == -1)
+		write(2, "signal error\n", 13);
+	if ((sigaction(SIGUSR1, &zero, NULL)) == -1)
+		write(2, "signal error\n", 13);
 	ft_putnbr(getpid());
 	write(1, "\n", 1);
-	letter.letter = 0;
-	letter.index = 0;
 	while (1)
-	{
-		if ((sigaction(SIGUSR2, &one, NULL)) == -1)
-			write(2, "signal error\n", 13);
-		if ((sigaction(SIGUSR1, &zero, NULL)) == -1)
-			write(2, "signal error\n", 13);
-	}
+		pause();
 }

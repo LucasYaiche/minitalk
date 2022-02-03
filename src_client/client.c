@@ -6,45 +6,59 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:00:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/02/02 16:59:21 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:12:41 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+void	reception(int sig, siginfo_t *info, void *act)
+{
+	(void)sig;
+	(void)info;
+	(void)act;
+	write(1, "message received .\n", 20);
+}
+
+void	send_bit(int pid, char c)
+{
+	int	bit;
+
+	bit = 8;
+	while (--bit >= 0)
+	{
+		if ((c >> bit) & 1)
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				panic_button();
+		}
+		else
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				panic_button();
+		}
+		usleep(50);
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	int		pid;
-	int		i;
-	int		bit;
-	char	*msg;
-	struct sigaction	breakpoint;
+	int					pid;
+	char				*msg;
+	struct sigaction	message;
 
+	message.sa_sigaction = reception;
+	message.sa_flags = SA_SIGINFO;
+	if ((sigaction(SIGUSR1, &message, NULL)) == -1)
+		write(2, "signal error\n", 13);
 	if (argc != 3 || !check_pid(argv[1]))
 		panic_button();
 	pid = ft_atoi(argv[1]);
-	i = -1;
 	msg = argv[2];
 	while (*msg)
 	{
-		bit = 8;
-		while (--bit >= 0)
-		{
-			if ((*msg >> bit) & 1)
-			{
-				// write(1, "oui 1\n", 7);
-				if (kill(pid, SIGUSR2) == -1)
-					panic_button();
-			}
-			else
-			{
-				// write(1, "oui 0\n", 7);
-				if (kill(pid, SIGUSR1) == -1)
-					panic_button();
-			}
-			while (sigaction(SIGUSR2, &breakpoint, NULL) != 0)
-				pause();
-		}
+		send_bit(pid, *msg);
 		msg++;
 	}
+	send_bit(pid, *msg);
 }
