@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:00:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/02/03 17:12:41 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/02/04 11:16:01 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	reception(int sig, siginfo_t *info, void *act)
 	(void)sig;
 	(void)info;
 	(void)act;
-	write(1, "message received .\n", 20);
+	write(1, "message received \n", 19);
 }
 
 void	send_bit(int pid, char c)
@@ -52,7 +52,10 @@ int	main(int argc, char **argv)
 	if ((sigaction(SIGUSR1, &message, NULL)) == -1)
 		write(2, "signal error\n", 13);
 	if (argc != 3 || !check_pid(argv[1]))
-		panic_button();
+	{
+		write(2, "argument error\n", 15);
+		exit(1);
+	}
 	pid = ft_atoi(argv[1]);
 	msg = argv[2];
 	while (*msg)

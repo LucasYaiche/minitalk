@@ -6,27 +6,27 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:19:01 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/02/03 17:12:04 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/02/04 11:25:54 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-t_letter	letter;
+t_letter	g_letter;
 
 void	bit_one(int sig, siginfo_t *info, void *act)
 {
 	(void)sig;
 	(void)info;
 	(void)act;
-	letter.index++;
-	letter.letter <<= 1;
-	letter.letter |= 1;
-	if (letter.index % 8 == 0)
+	g_letter.index++;
+	g_letter.letter <<= 1;
+	g_letter.letter |= 1;
+	if (g_letter.index % 8 == 0)
 	{
-		write(1, &letter.letter, 1);
-		letter.index = 0;
-		letter.letter = 0;
+		write(1, &g_letter.letter, 1);
+		g_letter.index = 0;
+		g_letter.letter = 0;
 	}
 }
 
@@ -35,20 +35,21 @@ void	bit_zero(int sig, siginfo_t *info, void *act)
 	(void)sig;
 	(void)info;
 	(void)act;
-	letter.index++;
-	letter.letter <<= 1;
-	if (letter.index % 8 == 0)
+	g_letter.index++;
+	g_letter.letter <<= 1;
+	if (g_letter.index % 8 == 0)
 	{
-		if (letter.letter == '\0')
+		if (g_letter.letter == '\0')
 		{
-			write(1, "\n", 1);
-			kill(info->si_pid, SIGUSR1);
+			write(1, "\nmessage :\n", 11);
+			if (kill(info->si_pid, SIGUSR1))
+				panic_button();
 		}
 		else
 		{
-			write(1, &letter.letter, 1);
-			letter.index = 0;
-			letter.letter = 0;
+			write(1, &g_letter.letter, 1);
+			g_letter.index = 0;
+			g_letter.letter = 0;
 		}
 	}
 }
@@ -66,8 +67,9 @@ int	main(void)
 		write(2, "signal error\n", 13);
 	if ((sigaction(SIGUSR1, &zero, NULL)) == -1)
 		write(2, "signal error\n", 13);
+	write(1, "PID: ", 5);
 	ft_putnbr(getpid());
-	write(1, "\n", 1);
+	write(1, "\nmessage :\n", 11);
 	while (1)
 		pause();
 }
