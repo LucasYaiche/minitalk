@@ -63,7 +63,7 @@ clean:
 fclean:							clean
 								@rm -f ${NAME}
 								@rm -f ${NAME_CLIENT}
-								@printf "\e[31;3mClean exec\e[0m\n"
+								@printf "\e[31;3mClean execs\e[0m\n"
 
 re:								fclean all
 
