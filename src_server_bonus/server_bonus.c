@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:19:01 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/03/21 15:30:47 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/03/21 15:58:25 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 t_letter	g_letter;
 
@@ -40,7 +40,11 @@ void	bit_zero(int sig, siginfo_t *info, void *act)
 	if (g_letter.index % 8 == 0)
 	{
 		if (g_letter.letter == '\0')
+		{
 			write(1, "\nmessage :\n", 11);
+			if (kill(info->si_pid, SIGUSR1))
+				panic_button();
+		}
 		else
 		{
 			write(1, &g_letter.letter, 1);
